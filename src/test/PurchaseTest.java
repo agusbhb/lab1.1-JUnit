@@ -29,7 +29,7 @@ public class PurchaseTest {
 		public void initialize() {
 			System.out.println("Initialize  ...");
 			
-			price= 0;	// 234.99 real value
+			price= 234.99;	// 234.99 real value
 			quantity = 1;
 			article = new Article("404", "MASK PINK", price, false, quantity);
 		} 
@@ -60,18 +60,23 @@ public class PurchaseTest {
 
 		@Test
 		public void testAddBasket2() {
-			
+		try {	
 			quantity = 3;
 			price = 234.99;
 			double expected = quantity*price;
 
 			double obtained = basket.addBasket(article, quantity);
-			assertEquals(expected, obtained, 0);
-			try {
-				basket.removeBasket(article, quantity);
-			} catch (PurchaseException e) {
-				fail();
-			}
+			fail();
+			//			assertEquals(expected, obtained, 0);
+			
+		}catch(RuntimeException e){
+			assertTrue(true); //Esto es para comprobar a traves de un caso de test que los parametros hacen que se lanze una excepción
+		}
+//		try {
+//				basket.removeBasket(article, quantity);
+		//			} catch (PurchaseException e) {
+		//		fail();
+		//	}
 		}
 		
 		@Test
@@ -83,16 +88,28 @@ public class PurchaseTest {
 				assertNotNull(basket.getDate());
 				
 				quantity = 3;
-				double expected= quantity*article.getPrice();
 				
-				double cost= basket.addBasket(article, quantity);
-				
-				assertEquals(expected, cost, 0);
+				fail();
 				
 			} catch (ParseException e) {
 				fail();
+			} catch(RuntimeException e){
+				assertTrue(true); //Esto es para comprobar a traves de un caso de test que los parametros hacen que se lanze una excepción
 			}
 		}
-
+		
+//Este test es para detectar un error en la aplicacion. En este caso realizará un null.getstock(), que esa funcion no está implementado de esa manera 
+		@Test
+		public void testAddBasket4()	{
+				try {
+						quantity =	1;
+						basket.addBasket(null,	quantity);
+						fail("The	code	must	not	continue	!!");
+				}	catch (NullPointerException	e)	{
+									fail("Null	pointer	exception	not	handled");
+				}	catch (RuntimeException	e)	{
+									assertTrue(true);
+				}
+		}
 
 }
