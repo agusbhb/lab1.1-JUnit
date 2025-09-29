@@ -16,7 +16,7 @@ import exceptions.PurchaseException;
 public class Purchase {
 	private Date purchaseDate;
 	private double cost;
-	private HashMap<Article, PurchasedArticle> basket = new HashMap<Article, PurchasedArticle>();
+	private HashMap<Article, PurchasedArticle> basket = new HashMap<>();
 
 	/**
 	 * Get purchase date information
